@@ -1,4 +1,4 @@
-Webdirver automation using dart
+Webdriver automation using dart
 
 ## Usage
 
