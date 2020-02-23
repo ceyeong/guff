@@ -5,42 +5,42 @@ class Capabilities {
 
   Capabilities({Map<String, dynamic> capabilites}) {
     if (capabilites != null) {
-      this._capabilites = capabilites;
+      _capabilites = capabilites;
     } else {
-      this._capabilites = Map<String, dynamic>();
+      _capabilites = <String, dynamic>{};
     }
   }
   String getBrowserName() {
-    return this._capabilites[Capability.BROWSER_NAME];
+    return _capabilites[Capability.BROWSER_NAME];
   }
 
   String getPlatformName() {
-    return this._capabilites[Capability.PLATFORM_NAME];
+    return _capabilites[Capability.PLATFORM_NAME];
   }
 
   Capabilities setBrowserName(String browser) {
-    return this.setCapability(Capability.BROWSER_NAME, browser);
+    return setCapability(Capability.BROWSER_NAME, browser);
   }
 
   Capabilities setPlatformName(String platformName) {
-    return this.setCapability(Capability.PLATFORM_NAME, platformName);
+    return setCapability(Capability.PLATFORM_NAME, platformName);
   }
 
   Capabilities setCapability(String key, String value) {
-    this._capabilites[key] = value;
+    _capabilites[key] = value;
     return this;
   }
 
   dynamic getCapability(String key) {
-    return this._capabilites[key];
+    return _capabilites[key];
   }
 
   Map<String, dynamic> getCapabilities() {
-    return this._capabilites;
+    return _capabilites;
   }
 
   Capabilities setCapabilities(Map<String, dynamic> capabilities) {
-    this._capabilites.addAll(capabilities);
+    _capabilites.addAll(capabilities);
     return this;
   }
 }

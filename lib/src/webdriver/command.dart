@@ -3,20 +3,20 @@ class Command {
   final Map<String, dynamic> _parameters = {};
   Command(this._name);
 
-  Commands get name => this._name;
+  Commands get name => _name;
 
   ///Set the parameter to send with this command
   Command setParameter(String name, dynamic value) {
-    this._parameters[name] = value;
+    _parameters[name] = value;
     return this;
   }
 
   dynamic getParameter(String key) {
-    return this._parameters[key];
+    return _parameters[key];
   }
 
   Map<String, dynamic> getParameters() {
-    return this._parameters;
+    return _parameters;
   }
 }
 

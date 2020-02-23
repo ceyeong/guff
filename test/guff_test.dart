@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   
-  test("Escape Css", (){
-    print(escapeCss("input.gLFyf.gsfi"));
+  test('Escape Css', (){
+    print(escapeCss('input.gLFyf.gsfi'));
   });
 }

@@ -6,11 +6,11 @@ class WebdriverService {
   static int serviceId;
 
   static Future<int> Start(String browser) async {
-    String executable = getEnv(browser);
+    var executable = getEnv(browser);
     if (executable == null) {
       throw Error();
     }
-    Process res = await Process.start(executable, []);
+    var res = await Process.start(executable, []);
     WebdriverService.serviceId = res.pid;
     return res.pid;
   }

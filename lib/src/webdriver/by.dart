@@ -10,12 +10,12 @@ class By {
 
   //By className
   static By className(String className) {
-    return By.css("." + className);
+    return By.css('.' + className);
   }
 
   //By css
   static By css(String css) {
-    return By("css selector", css);
+    return By('css selector', css);
   }
 
   //By name
@@ -25,35 +25,35 @@ class By {
 
   //By linkText
   static By linkText(String linkText) {
-    return By("link text", linkText);
+    return By('link text', linkText);
   }
 
   //By partialLinkText
   static By partialLinkText(String partialLinkText) {
-    return By("partial link text", partialLinkText);
+    return By('partial link text', partialLinkText);
   }
 
   //By tagName
   static By tagName(String tagName) {
-    return By("tag name", tagName);
+    return By('tag name', tagName);
   }
 
   //By xpath
   static By xpath(String xpath) {
-    return By("xpath", xpath);
+    return By('xpath', xpath);
   }
 
   @override
   String toString() {
-    return "\{'using': '${this.using}, 'value': '${this.value}'\}";
+    return "\{'using': '${using}, 'value': '${value}'\}";
   }
 }
 
 //Escape css
 String escapeCss(String css) {
-  String ret = "";
+  var ret = '';
 
-  for (int i = 0; i < css.length; i++) {
+  for (var i = 0; i < css.length; i++) {
     var c = css.codeUnitAt(i);
     if (c == 0x0) {
       throw Error();

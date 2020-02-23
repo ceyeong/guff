@@ -8,55 +8,56 @@ import 'package:guff/src/webdriver/navigation.dart';
 import 'package:guff/src/webdriver/session.dart';
 import 'package:guff/src/webdriver/webdriver_interface.dart';
 
+import 'element.dart';
+
 class WebDriver implements WebDriverInterface {
   WebDriver(this._session);
 
   @override
   Future<WebDriver> close() async {
-    await this.executor(Command(Commands.CLOSE));
+    await executor(Command(Commands.CLOSE));
     return this;
   }
 
   @override
   Future<String> getCurrentUrl() async {
-    var res = await this.executor(Command(Commands.GET_CURRENT_URL));
-    return res["value"];
+    var res = await executor(Command(Commands.GET_CURRENT_URL));
+    return res;
   }
 
   @override
   Future<String> getPageSource() async {
-    var res = await this.executor(Command(Commands.GET_PAGE_SOURCE));
-    return res["value"];
+    var res = await executor(Command(Commands.GET_PAGE_SOURCE));
+    return res;
   }
 
   @override
   Future<String> getTitle() async {
-    var res = await this.executor(Command(Commands.GET_PAGE_TITLE));
-    return res["value"];
+    var res = await executor(Command(Commands.GET_PAGE_TITLE));
+    return res;
   }
 
   @override
   Future<String> getWindowHandle() async {
-    var res = await this.executor(Command(Commands.GET_WINDOW_HANDLE));
-    return res["value"];
+    var res = await executor(Command(Commands.GET_WINDOW_HANDLE));
+    return res;
   }
 
   @override
   Future<List<String>> getWindowHandles() async {
-    var res = await this.executor(Command(Commands.GET_WINDOW_HANDLES));
-    List<String> list = res["value"].cast<String>().toList();
-    return list;
+    var res = await executor(Command(Commands.GET_WINDOW_HANDLES));
+    return res;
   }
 
   @override
   Future<WebDriver> loadUrl(String url) async {
-    await this.navigate().to(url);
+    await navigate().to(url);
     return this;
   }
 
   @override
   void quit() async {
-    await this.executor(Command(Commands.QUIT));
+    await executor(Command(Commands.QUIT));
     WebdriverService.Stop();
   }
 
@@ -70,41 +71,58 @@ class WebDriver implements WebDriverInterface {
 
   static Future<WebDriver> createSession(Capabilities capabilities) async {
     var cmd = Command(Commands.NEW_SESSION);
-    cmd.setParameter("capabilities", capabilities.getCapabilities());
-    Map res = await Exe.execute(cmd);
-    if (!res["value"].containsKey("sessionId")) {
+    cmd.setParameter('capabilities', capabilities.getCapabilities());
+    var res = await Exe.execute(cmd);
+    if (!res['value'].containsKey('sessionId')) {
       throw Exception(
-          "Error: Something went wrong. Make sure Webdriver is properly configured");
+          'Error: Something went wrong. Make sure Webdriver is properly configured');
     }
-    Capabilities caps = Capabilities(capabilites: res["value"]["capabilities"]);
-    Session session = Session(res["value"]["sessionId"], caps);
+    var caps = Capabilities(capabilites: res['value']['capabilities']);
+    var session = Session(res['value']['sessionId'], caps);
     return WebDriver(session);
   }
 
   @override
   Future<Element> findElement(By by) async {
-    Command cmd = Command(Commands.FIND_ELEMENT)
-      ..setParameter("using", by.using)
-      ..setParameter("value", by.value);
-    Map res = await this.executor(cmd);
-    String elementId = res["value"].values.first;
-    return Element(elementId, this);
+    var cmd = Command(Commands.FIND_ELEMENT)
+      ..setParameter('using', by.using)
+      ..setParameter('value', by.value);
+    var res = await executor(cmd);
+    return Element(res, this);
   }
 
   Future<List<Element>> findElements(By by) async {
-    Map res = await this.executor(Command(Commands.FIND_ELEMENTS)
-      ..setParameter("using", by.using)
-      ..setParameter("value", by.value));
-    return null;
+    List res = await executor(Command(Commands.FIND_ELEMENTS)
+      ..setParameter('using', by.using)
+      ..setParameter('value', by.value));
+    List<Element> elements;
+    elements = [];
+    res.forEach((r) => elements.add(Element(r.toString(), this)));
+    return elements;
   }
 
-  Future<Map> executor(Command cmd) {
-    cmd.setParameter("sessionId", this._session.id);
-    return Exe.execute(cmd);
+  Future<Object> executor(Command cmd) async {
+    cmd.setParameter('sessionId', _session.id);
+    var res = await Exe.execute(cmd);
+    return _parseBody(res);
   }
 
   @override
   Navigation navigate() {
     return Navigation(this);
+  }
+
+  Object _parseBody(var responseBody) {
+    var value = responseBody['value'];
+    if (value is Map) {
+      return value.values.first;
+    } else if (value is List) {
+      var ret = [];
+      value.forEach((v) {
+        ret.add(v.values.first);
+      });
+      return ret;
+    }
+    return null;
   }
 }

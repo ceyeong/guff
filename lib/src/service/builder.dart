@@ -8,43 +8,43 @@ class Builder {
   Capabilities _capabilities;
 
   Builder() {
-    this._capabilities = Capabilities();
+    _capabilities = Capabilities();
   }
 
   Builder withChrome() {
-    this._capabilities.setBrowserName(Capability.CHROME);
+    _capabilities.setBrowserName(Capability.CHROME);
     return this;
   }
 
   Builder withFirefox() {
-    this._capabilities.setBrowserName(Capability.FIREFOX);
+    _capabilities.setBrowserName(Capability.FIREFOX);
     return this;
   }
 
   Builder withCapabilities(Map<String, dynamic> capibilities) {
-    this._capabilities.setCapabilities(capibilities);
+    _capabilities.setCapabilities(capibilities);
     return this;
   }
 
   Future<WebDriver> build() async {
     //if browser not specifed throw error
-    if (this._capabilities.getBrowserName() == null) {
-      throw Exception("Browser undefined");
+    if (_capabilities.getBrowserName() == null) {
+      throw Exception('Browser undefined');
     }
-    print("starting driver service");
+    print('starting driver service');
     //start service
-    await this._startService();
+    await _startService();
 
-    WebDriver driver = await WebDriver.createSession(this._capabilities);
-    print("returning driver");
+    var driver = await WebDriver.createSession(_capabilities);
+    print('returning driver');
     return driver;
   }
 
   void _startService() async {
-    List<String> browsers = [Capability.CHROME, Capability.FIREFOX];
-    if (!browsers.contains(this._capabilities.getBrowserName())) {
-      throw Exception("Unknown Browser ${this._capabilities.getBrowserName()}");
+    var browsers = [Capability.CHROME, Capability.FIREFOX];
+    if (!browsers.contains(_capabilities.getBrowserName())) {
+      throw Exception('Unknown Browser ${_capabilities.getBrowserName()}');
     }
-    await WebdriverService.Start(this._capabilities.getBrowserName());
+    await WebdriverService.Start(_capabilities.getBrowserName());
   }
 }
