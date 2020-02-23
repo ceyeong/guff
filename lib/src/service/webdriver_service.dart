@@ -1,14 +1,11 @@
 import 'dart:io';
 
-import 'package:guff/src/webdriver/env.dart';
-
 class WebdriverService {
   static int serviceId;
 
-  static Future<int> Start(String browser) async {
-    var executable = getEnv(browser);
+  static Future<int> Start({String browser, String executable}) async {
     if (executable == null) {
-      throw Error();
+      throw Exception('Webdriver path not provided');
     }
     var res = await Process.start(executable, []);
     WebdriverService.serviceId = res.pid;
