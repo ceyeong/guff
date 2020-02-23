@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('Start Service and kill it', () async {
-    setEnv('chrome', '../drivers./chromedriver');
+    setEnv('chrome', '../drivers/chromedriver');
     var pid = await WebdriverService.Start('chrome');
     expect(pid, WebdriverService.serviceId);
   });

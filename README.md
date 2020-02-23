@@ -10,8 +10,13 @@ A simple usage example:
 ```dart
 import 'package:guff/guff.dart';
 
-main() {
-  var awesome = new Awesome();
+void main() async {
+  var chrome = await Builder().withChrome().build();
+
+  await chrome.loadUrl('https://google.com');
+  print(await chrome.getTitle());
+  await chrome.sleep(Duration(seconds: 5));
+  await chrome.quit();
 }
 ```
 
