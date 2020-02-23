@@ -123,6 +123,6 @@ class WebDriver implements WebDriverInterface {
       });
       return ret;
     }
-    return null;
+    return value;
   }
 }

@@ -36,7 +36,6 @@ class Builder {
     await _startService();
 
     var driver = await WebDriver.createSession(_capabilities);
-    print('returning driver');
     return driver;
   }
 
