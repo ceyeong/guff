@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:guff/src/webdriver/capability.dart';
+
 class WebdriverService {
   static int serviceId;
 
@@ -7,7 +9,13 @@ class WebdriverService {
     if (executable == null) {
       throw Exception('Webdriver path not provided');
     }
-    var res = await Process.start(executable, []);
+    List<String> params = [];
+    if(browser == Capability.FIREFOX) {
+      params.add('-p');
+      params.add('9515');
+    }
+
+    var res = await Process.start(executable, params);
     WebdriverService.serviceId = res.pid;
     return res.pid;
   }

@@ -8,5 +8,6 @@ export 'src/webdriver/by.dart';
 export 'src/webdriver/element.dart';
 export 'src/webdriver/webdriver.dart';
 export 'src/service/builder.dart';
+export 'src/webdriver/select.dart';
 
 // TODO: Export any libraries intended for clients of this package.

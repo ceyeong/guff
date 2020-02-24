@@ -1,5 +1,7 @@
 import 'package:guff/src/webdriver/command.dart';
 
+import 'command.dart';
+
 Map GET(String path) {
   return resource('GET', path);
 }
@@ -42,39 +44,52 @@ Map COMMAND_MAP = {
   Commands.NEW_SESSION: POST('/session'),
   Commands.GET_SESSIONS: GET('/sessions'),
 
-  Commands.GET_TIMEOUT : GET('/session/sessionId/timeouts'),
-  Commands.SET_TIMEOUT : POST('/session/sessionId/timeouts'),
+  Commands.GET_TIMEOUT: GET('/session/sessionId/timeouts'),
+  Commands.SET_TIMEOUT: POST('/session/sessionId/timeouts'),
 
   Commands.CLOSE: DELETE('/session/:sessionId/window'),
   Commands.QUIT: DELETE('/session/:sessionId'),
 
   Commands.GET: POST('/session/:sessionId/url'),
-  Commands.GET_CURRENT_URL : GET('/session/:sessionId/url'),
-  Commands.GO_BACK : POST('/session/:sessionId/back'),
-  Commands.GO_FORWARD : POST('/session/:sessionId/forward'),
-  Commands.REFRESH : POST('/session/:sessionId/refresh'),
+  Commands.GET_CURRENT_URL: GET('/session/:sessionId/url'),
+  Commands.GO_BACK: POST('/session/:sessionId/back'),
+  Commands.GO_FORWARD: POST('/session/:sessionId/forward'),
+  Commands.REFRESH: POST('/session/:sessionId/refresh'),
 
-  Commands.GET_PAGE_SOURCE : GET('/session/:sessionId/source'),
-  Commands.GET_PAGE_TITLE : GET('/session/:sessionId/title'),
+  Commands.GET_PAGE_SOURCE: GET('/session/:sessionId/source'),
+  Commands.GET_PAGE_TITLE: GET('/session/:sessionId/title'),
 
   //Elements
-  Commands.FIND_ELEMENT : POST('/session/:sessionId/element'),
-  Commands.FIND_ELEMENTS : POST('/session/:sessionId/elements'),
-  Commands.GET_ACTIVE_ELEMENTS : GET('/session/:sessionId/element/active'),
-  Commands.FIND_CHILD_ELEMENT : POST('/session/:sessionId/element/:id/element'),
-  Commands.FIND_CHILD_ELEMENTS : POST('/session/:sessionId/element/:id/elements'),
+  Commands.FIND_ELEMENT: POST('/session/:sessionId/element'),
+  Commands.FIND_ELEMENTS: POST('/session/:sessionId/elements'),
+  Commands.GET_ACTIVE_ELEMENTS: GET('/session/:sessionId/element/active'),
+  Commands.FIND_CHILD_ELEMENT: POST('/session/:sessionId/element/:id/element'),
+  Commands.FIND_CHILD_ELEMENTS:
+      POST('/session/:sessionId/element/:id/elements'),
+  Commands.FIND_ELEMENT_FROM_ELEMENT:
+      POST('/session/:sessionId/element/:id/element'),
+  Commands.FIND_ELEMENTS_FROM_ELEMENT:
+      POST('/session/:sessionId/element/:id/elements'),
 
   //Interactions
-  Commands.CLICK_ELEMENT : POST('/session/:sessionId/element/:id/click'),
-  Commands.CLEAR_ELEMENT : POST('/session/:sessionId/element/:id/clear'),
-  Commands.GET_ELEMENT_TEXT : GET('/session/:sessionId/element/:id/text'),
-  Commands.IS_ELEMENT_ENABLED : GET('/session/:sessionId/element/:id/enabled'),
-  Commands.SEND_KEYS_TO_ELEMENT : POST('/session/:sessionId/element/:id/value'),
+  Commands.CLICK_ELEMENT: POST('/session/:sessionId/element/:id/click'),
+  Commands.CLEAR_ELEMENT: POST('/session/:sessionId/element/:id/clear'),
+  Commands.SEND_KEYS_TO_ELEMENT: POST('/session/:sessionId/element/:id/value'),
+
+  //Element State
+  Commands.IS_ELEMENT_SELECTED: GET('/session/:sessionId/element/:id/selected'),
+  Commands.GET_ELEMENT_ATTRIBUTE: GET('/session/:sessionId/element/:id/attribute/:name'),
+  Commands.GET_ELEMENT_PROPERTY: GET('/session/:sessionId/element/:id/property/:name'),
+  Commands.GET_ELEMENT_CSS_VALUE: GET('/session/:sessionId/element/:id/css/:propertyName'),
+  Commands.GET_ELEMENT_TEXT: GET('/session/:sessionId/element/:id/text'),
+  Commands.GET_ELEMENT_TAG_NAME: GET('/session/:sessionId/element/:id/name'),
+  Commands.GET_ELEMENT_RECT: GET('/session/:sessionId/element/:id/rect'),
+  Commands.IS_ELEMENT_ENABLED: GET('/session/:sessionId/element/:id/enabled'),
 
   //Contexts
-  Commands.GET_WINDOW_HANDLE : GET('/session/:sessionId/window'),
-  Commands.GET_WINDOW_HANDLES : GET('/session/:sessionId/window/handles'),
-  Commands.CLOSE_WINDOW : DELETE('/session/:sessionId/window'),
-  Commands.SWITCH_TO_WINDOW : POST('/session/:sessionId/window'),
-  Commands.NEW_WINDOW : POST('/session/:sessionId/window/new')
+  Commands.GET_WINDOW_HANDLE: GET('/session/:sessionId/window'),
+  Commands.GET_WINDOW_HANDLES: GET('/session/:sessionId/window/handles'),
+  Commands.CLOSE_WINDOW: DELETE('/session/:sessionId/window'),
+  Commands.SWITCH_TO_WINDOW: POST('/session/:sessionId/window'),
+  Commands.NEW_WINDOW: POST('/session/:sessionId/window/new')
 };

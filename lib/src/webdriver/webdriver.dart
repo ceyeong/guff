@@ -115,6 +115,9 @@ class WebDriver implements WebDriverInterface {
   Object _parseBody(var responseBody) {
     var value = responseBody['value'];
     if (value is Map) {
+      if(value.values.length > 1){
+        return value;
+      }
       return value.values.first;
     } else if (value is List) {
       var ret = [];
